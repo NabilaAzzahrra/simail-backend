@@ -5,17 +5,23 @@ const { User } = require('../models');
 const bcrypt = require('bcrypt');
 
 router.get('/', async (req, res) => {
-    let users = await User.findAll();
-    return res.json(users);
+    const users = await User.findAll();
+    return res.status(200).json({
+        status:'success',
+        data:users
+    });
 });
 
 router.get('/:id', async (req, res) => {
-    let users = await User.findOne({
+    const users = await User.findOne({
         where: {
             id: req.params.id
         }
     });
-    return res.json(users);
+    return res.status(200).json({
+        status:'success',
+        data:users
+    });
 });
 
 router.post('/', async (req, res) => {
@@ -35,7 +41,7 @@ router.post('/', async (req, res) => {
 
 router.patch('/:id', async (req, res) => {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
-    let data = {
+    const data = {
         name: req.body.name,
         email: req.body.email,
         password: hashedPassword,
@@ -45,14 +51,9 @@ router.patch('/:id', async (req, res) => {
             id: req.params.id
         }
     });
-    let user = await User.findOne({
-        where: {
-            id: req.params.id
-        }
-    });
-    return res.json({
-        message: 'Berhasil diubah',
-        data: user
+    return res.status(200).json({
+        status:'success',
+        message:'Berhasil Mengubah Data'
     });
 });
 
@@ -62,7 +63,8 @@ router.delete('/:id', async (req, res) => {
             id: req.params.id
         }
     });
-    return res.json({
+    return res.status(200).json({
+        status:'sucsess',
         message: 'BERHASIL DIHAPUS'
     });
 });
