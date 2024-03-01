@@ -3,12 +3,13 @@ var router = express.Router();
 const { User } = require('../models');
 
 const bcrypt = require('bcrypt');
+const verifyToken = require('../middlewares/verifyToken');
 
-router.get('/', async (req, res) => {
+router.get('/', verifyToken, async (req, res) => {
     const users = await User.findAll();
     return res.status(200).json({
-        status:'success',
-        data:users
+        status: 'success',
+        data: users
     });
 });
 
@@ -19,8 +20,8 @@ router.get('/:id', async (req, res) => {
         }
     });
     return res.status(200).json({
-        status:'success',
-        data:users
+        status: 'success',
+        data: users
     });
 });
 
@@ -52,8 +53,8 @@ router.patch('/:id', async (req, res) => {
         }
     });
     return res.status(200).json({
-        status:'success',
-        message:'Berhasil Mengubah Data'
+        status: 'success',
+        message: 'Berhasil Mengubah Data'
     });
 });
 
@@ -64,7 +65,7 @@ router.delete('/:id', async (req, res) => {
         }
     });
     return res.status(200).json({
-        status:'sucsess',
+        status: 'sucsess',
         message: 'BERHASIL DIHAPUS'
     });
 });
