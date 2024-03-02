@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "lp3itasik",
+    "password": null,
     "database": "dbo_simail",
     "host": "127.0.0.1",
     "dialect": "mysql"

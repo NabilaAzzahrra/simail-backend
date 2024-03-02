@@ -28,12 +28,14 @@ app.use((req, res, next) => {
 });
 
 const corsOptions = {
-    origin: (origin, callback) => {
+    origin: function(origin, callback) {
         if (!origin) return callback(null, true);
-        const allowedOrigins = [
-            'http://localhost:5173',
 
+        const allowedOrigins = [
+            'http://127.0.0.1:5173',
+            // Tambahkan origin lain di sini jika diperlukan
         ];
+
         if (allowedOrigins.includes(origin)) {
             callback(null, true);
         } else {
@@ -44,6 +46,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+
 
 app.use(logger('dev'));
 app.use(express.json());
